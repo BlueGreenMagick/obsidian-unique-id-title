@@ -2,7 +2,7 @@
 	"id": "unique-id-title",
 	"name": "Unique Id Title",
 	"version": "1.0.0",
-	"minAppVersion": "1.0.0",
+	"minAppVersion": "1.1.0",
 	"description": "Prefix note title with unique ID",
 	"author": "Yoonchae Lee",
 	"authorUrl": "https://yoonchae.com",

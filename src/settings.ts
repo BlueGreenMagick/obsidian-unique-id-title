@@ -1,18 +1,18 @@
-import { App, PluginSettingTab, Setting } from 'obsidian';
-import MyPlugin from './main';
+import * as Obsidian from 'obsidian';
+import Plugin from './main';
 
-export interface MyPluginSettings {
+export interface PluginSettings {
 	mySetting: string;
 }
 
-export const DEFAULT_SETTINGS: MyPluginSettings = {
+export const DEFAULT_SETTINGS: PluginSettings = {
 	mySetting: 'default',
 };
 
-export class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+export class SettingTab extends Obsidian.PluginSettingTab {
+	plugin: Plugin;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: Obsidian.App, plugin: Plugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
@@ -22,7 +22,7 @@ export class SampleSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		new Setting(containerEl)
+		new Obsidian.Setting(containerEl)
 			.setName('Settings #1')
 			.setDesc("It's a secret")
 			.addText((text) =>

@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "unique-id-title",
+	"name": "Unique Id Title",
 	"version": "1.0.0",
 	"minAppVersion": "1.0.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Prefix note title with unique ID",
+	"author": "Yoonchae Lee",
+	"authorUrl": "https://yoonchae.com",
 	"isDesktopOnly": false
 }

@@ -9,7 +9,7 @@ export interface RuleDefinition {
 	name: string;
 	prefix: string;
 	separator: string;
-	currentNumber: number;
+	nextId: number;
 	minimumDigits: number;
 }
 
@@ -23,14 +23,14 @@ export function createDefaultDefinition(): RuleDefinition {
 		name: '',
 		prefix: '',
 		separator: '-',
-		currentNumber: 0,
+		nextId: 0,
 		minimumDigits: 4,
 	};
 }
 
 // Pure helper used to render a row's summary, e.g. "D-0042".
 export function formatExampleId(def: RuleDefinition): string {
-	const number = String(Math.max(0, def.currentNumber)).padStart(
+	const number = String(Math.max(0, def.nextId)).padStart(
 		Math.max(1, def.minimumDigits),
 		'0',
 	);
@@ -71,7 +71,10 @@ export class SettingTab extends Obsidian.PluginSettingTab {
 					}),
 			);
 
-		for (const [index, def] of this.plugin.settings.ruleDefinitions.entries()) {
+		for (const [
+			index,
+			def,
+		] of this.plugin.settings.ruleDefinitions.entries()) {
 			new Obsidian.Setting(containerEl)
 				.setName(def.name || '(unnamed)')
 				.setDesc(formatExampleId(def))
@@ -180,17 +183,15 @@ export class DefinitionModal extends Obsidian.Modal {
 		contentEl.createEl('h4', { text: 'Counter', cls: 'uid-modal-heading' });
 
 		new Obsidian.Setting(contentEl)
-			.setName('Current number')
-			.setDesc(
-				'Mutable counter state. Seed this to resume from ids created manually or by another plugin.',
-			)
+			.setName('Next number')
+			.setDesc('This number will be used for the next note title.')
 			.addText((text) => {
 				text.inputEl.type = 'number';
-				text.setValue(String(this.draft.currentNumber)).onChange(
+				text.setValue(String(this.draft.nextId)).onChange(
 					(value) => {
 						const parsed = parseInt(value, 10);
-						this.draft.currentNumber = Number.isNaN(parsed)
-							? this.draft.currentNumber
+						this.draft.nextId = Number.isNaN(parsed)
+							? this.draft.nextId
 							: Math.max(0, parsed);
 					},
 				);
